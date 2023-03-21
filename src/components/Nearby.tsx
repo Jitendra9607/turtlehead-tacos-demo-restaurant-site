@@ -44,7 +44,7 @@ export default function Nearby(props: any) {
                   }
                   </div> 
                   <div className="button-bx">
-                    <Link className="btn" href={`/${nearbylocations.data.id}`}
+                    <Link className="btn" href={`/${nearbylocations.data.slug}`}
                      data-ya-track={`viewstore-${nearbylocations.data.name}`}
                      eventName={`viewstore-${nearbylocations.data.name}`}
                      rel="noopener noreferrer">

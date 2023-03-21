@@ -48,7 +48,7 @@ export const config: TemplateConfig = {
 };
 
 export const getPath: GetPath<TemplateProps> = ({document}) => {
-  return `/${document.slug.toString()}`;
+  return `${document.slug.toString()}`;
 };
 
  export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({relativePrefixToRoot, path, document}): HeadConfig => {
@@ -89,6 +89,7 @@ export const getPath: GetPath<TemplateProps> = ({document}) => {
     dm_directoryParents,
     dm_directoryChildren
   } = document;
+  console.log(dm_directoryChildren,"slug");
 
   var sortedChildren = dm_directoryChildren.sort(function(a:any, b:any) {
     var a = a.name;
@@ -108,7 +109,6 @@ export const getPath: GetPath<TemplateProps> = ({document}) => {
       </div>
     </div>
   ));
-
   return (
     <>
       <PageLayout _site={_site} templateData={{__meta, document}}>

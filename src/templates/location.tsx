@@ -17,6 +17,7 @@ import {
   TemplateConfig,
   TemplateProps,
   TemplateRenderProps,
+  TransformProps,
 } from "@yext/pages";
 import * as React from "react";
 import Banner from "../components/Banner";
@@ -29,6 +30,9 @@ import Favicon from "../public/yext-favicon.ico";
 import "../index.css";
 import EditTool from "../components/EditTool";
 import { isProduction } from "@yext/pages/util";
+import Nearby from "../components/Nearby";
+import { nearByLocation } from "../types/nearByLocation";
+import { AnswerExperienceConfig } from "../config/answersHeadlessConfig";
 
 /**
  * Required when Knowledge Graph data is used for a template.
@@ -45,11 +49,12 @@ export const config: TemplateConfig = {
       "name",
       "address",
       "mainPhone",
-      "description",
       "hours",
       "slug",
-      "geocodedCoordinate",
-      "services",
+      "timezone",
+      "yextDisplayCoordinate",
+      "displayCoordinate",
+      "cityCoordinate"
     ],
     // Defines the scope of entities that qualify for this stream.
     filter: {
@@ -130,10 +135,29 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
  * components any way you'd like as long as it lives in the src folder (though you should not put
  * them in the src/templates folder as this is specific for true template files).
  */
-const Location: Template<TemplateRenderProps> = ({
+type ExternalApiData = TemplateProps & { externalApiData: nearByLocation };
+export const transformProps: TransformProps<ExternalApiData> = async (
+  data: any
+) => {
+
+  var location = `${data.document.yextDisplayCoordinate ? data.document.yextDisplayCoordinate.latitude : data.document.displayCoordinate.latitude},${data.document.yextDisplayCoordinate ? data.document.yextDisplayCoordinate.longitude : data.document.displayCoordinate.longitude}`;
+
+  const url = `${AnswerExperienceConfig.endpoints.verticalSearch}?experienceKey=${AnswerExperienceConfig.experienceKey}&api_key=${AnswerExperienceConfig.apiKey}&v=20220511&version=${AnswerExperienceConfig.experienceVersion}&locale=${AnswerExperienceConfig.locale}&location=${location}&verticalKey=${AnswerExperienceConfig.verticalKey}&limit=4&retrieveFacets=true&skipSpellCheck=false&sessionTrackingEnabled=true&source=STANDARD`;
+
+  const externalApiData = (await fetch(url).then((res: any) =>
+    res.json()
+
+  )) as nearByLocation;
+  return { ...data, externalApiData };
+};
+type ExternalApiRenderData = TemplateRenderProps & {
+  externalApiData: nearByLocation;
+};
+const Location: Template<ExternalApiRenderData> = ({
   relativePrefixToRoot,
   path,
   document,
+  externalApiData
 }) => {
   const {
     name,
@@ -145,7 +169,6 @@ const Location: Template<TemplateRenderProps> = ({
     description,
     siteDomain,
   } = document;
-
   return (
     <>
       <PageLayout>
@@ -173,6 +196,7 @@ const Location: Template<TemplateRenderProps> = ({
             </div>
           </div>
         </div>
+      <Nearby externalApiData={externalApiData} />
       </PageLayout>
       {/* This component displays a link to the entity that represents the given page in the Knowledge Graph*/}
       {!isProduction(siteDomain) && <EditTool data={document} />}

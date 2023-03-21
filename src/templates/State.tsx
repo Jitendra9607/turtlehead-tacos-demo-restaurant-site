@@ -14,7 +14,7 @@ import {
   GetHeadConfig,
   HeadConfig,
 } from "@yext/pages";
-import BreadCrumbs from "../components/Breadcrumbs";
+import BreadCrumbs from "../components/BreadCrumbs";
 
 export const config: TemplateConfig = {
   stream: {

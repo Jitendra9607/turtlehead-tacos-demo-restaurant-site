@@ -13,7 +13,7 @@ import {
   HeadConfig,
 } from "@yext/pages";
 import Banner from "../components/Banner";
-import BreadCrumbs from "../components/Breadcrumbs";
+import BreadCrumbs from "../components/BreadCrumbs";
  
  
 export const config: TemplateConfig = {

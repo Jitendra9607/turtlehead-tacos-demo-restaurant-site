@@ -23,7 +23,7 @@ import {
   import * as React from "react";
   import Banner from "../components/Banner";
   import PageLayout from "../components/PageLayout";
-  import BreadCrumbs from "../components/Breadcrumbs";
+  import BreadCrumbs from "../components/BreadCrumbs";
   import StaticMap from "../components/StaticMap";
   import Favicon from "../public/yext-favicon.ico";
   import "../index.css";

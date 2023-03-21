@@ -2,7 +2,7 @@ import * as React from "react";
 import Banner from "../components/Banner";
 import Address from "../components/Address";
 import PageLayout from "../components/PageLayout";
-import BreadCrumbs from "../components/Breadcrumbs";
+import BreadCrumbs from "../components/BreadCrumbs";
 import { formatPhoneNumber, formatPhoneNumberIntl } from 'react-phone-number-input';
 import Favicon from "../public/yext-favicon.ico";
 import "../index.css";

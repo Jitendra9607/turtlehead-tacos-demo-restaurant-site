@@ -10,7 +10,7 @@ type data = {
 };
 
 const BreadCrumbs = (props: data) => {
-
+  console.log(props.parents,"my data");
   const [list, setList] = React.useState(null);
  var breadcrumbs;
   var data: any = [];
@@ -77,7 +77,6 @@ const BreadCrumbs = (props: data) => {
       setList(null);
     }
   };
-  console.log("props",props);
   return (
     <div className="breadcrumb">
       <div className="container mx-auto">

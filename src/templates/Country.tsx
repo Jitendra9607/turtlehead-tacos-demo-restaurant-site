@@ -50,7 +50,10 @@ import {
         "dm_directoryChildren.name",
         "dm_directoryChildren.slug",
         "dm_directoryChildren.dm_baseEntityCount",
-        "dm_directoryParents",
+        "dm_directoryParents.name",
+        "dm_directoryParents.slug",
+        "dm_directoryParents.meta",
+        "dm_directoryParents.address",
         "dm_baseEntityCount"
       ],
       // The entity language profiles that documents will be generated for.
